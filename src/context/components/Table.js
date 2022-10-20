@@ -1,11 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import PlanetContext from '../PlanetContext';
 
 function Table() {
   const { apiList } = useContext(PlanetContext);
-  console.log(apiList);
+  const [list, setList] = useState(apiList);
+  const [inputValue, setInputValue] = useState('');
+  useEffect(() => {
+    const arrfilter = apiList.filter((e) => e.name.includes(inputValue));
+    setList(arrfilter);
+  }, [apiList, inputValue]);
+
+  const handleChange = ({ target }) => {
+    const { value } = target;
+    setInputValue(value);
+  };
   return (
     <div>
+      <form>
+        <input
+          type="text"
+          data-testid="name-filter"
+          onChange={ handleChange }
+        />
+      </form>
       <table>
         <thead>
           <tr>
@@ -25,7 +42,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {apiList.map((e) => (
+          {list.map((e) => (
             <tr key={ e.name }>
               <td>{e.name}</td>
               <td>{e.rotation_period}</td>
