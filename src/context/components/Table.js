@@ -8,6 +8,9 @@ function Table() {
   const [inputColumn, setInputColumn] = useState('population');
   const [inputOperator, setInputOperator] = useState('maior que');
   const [inputNumber, setInputNumber] = useState('0');
+  const ARR_COLUMN = ['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+  const [arrColumn, setArrColumn] = useState(ARR_COLUMN);
   useEffect(() => {
     const arrfilter = apiList.filter((e) => e.name.includes(inputValue));
     setList(arrfilter);
@@ -45,6 +48,8 @@ function Table() {
       const arfilter = list.filter((e) => +e[inputColumn] === +inputNumber);
       setList(arfilter);
     }
+    const filtraColuna = arrColumn.filter((e) => e !== inputColumn);
+    setArrColumn(filtraColuna);
   };
   return (
     <div>
@@ -61,11 +66,9 @@ function Table() {
             data-testid="column-filter"
             onChange={ onInputColumnChange }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {arrColumn.map((e) => (
+              <option key={ e } value={ e }>{e}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="cpFilter">

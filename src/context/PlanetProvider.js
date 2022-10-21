@@ -13,8 +13,6 @@ function PlanetProvider({ children }) {
         delete e.residents;
         return e;
       });
-      //   console.log(apiFilter);
-      //   console.log(api.results);
       setApiList(apiFilter);
     };
     fecthAPi();
