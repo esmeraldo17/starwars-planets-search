@@ -36,6 +36,9 @@ function Table() {
   };
 
   const onFilterBtnClick = () => {
+    const filtraColuna = arrColumn.filter((e) => e !== inputColumn);
+    setArrColumn(filtraColuna);
+
     if (inputOperator === 'maior que') {
       const arfilter = list.filter((e) => +e[inputColumn] > +inputNumber);
       setList(arfilter);
@@ -48,8 +51,6 @@ function Table() {
       const arfilter = list.filter((e) => +e[inputColumn] === +inputNumber);
       setList(arfilter);
     }
-    const filtraColuna = arrColumn.filter((e) => e !== inputColumn);
-    setArrColumn(filtraColuna);
   };
   return (
     <div>
@@ -57,6 +58,7 @@ function Table() {
         <input
           type="text"
           data-testid="name-filter"
+          placeholder="pesquisa"
           onChange={ onSearchInputChange }
         />
         <label htmlFor="clFilter">
@@ -118,7 +120,7 @@ function Table() {
         </thead>
         <tbody>
           {list.map((e) => (
-            <tr key={ e.name }>
+            <tr data-testid="linhas" key={ e.name }>
               <td>{e.name}</td>
               <td>{e.rotation_period}</td>
               <td>{e.orbital_period}</td>
