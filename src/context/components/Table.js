@@ -8,6 +8,7 @@ function Table() {
   const [inputColumn, setInputColumn] = useState('population');
   const [inputOperator, setInputOperator] = useState('maior que');
   const [inputNumber, setInputNumber] = useState('0');
+  const [filtro, setFiltro] = useState([]);
   const ARR_COLUMN = ['population',
     'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
   const [arrColumn, setArrColumn] = useState(ARR_COLUMN);
@@ -38,6 +39,7 @@ function Table() {
   const onFilterBtnClick = () => {
     const filtraColuna = arrColumn.filter((e) => e !== inputColumn);
     setArrColumn(filtraColuna);
+    setFiltro([...filtro, `${inputColumn} ${inputOperator} ${inputNumber}`]);
 
     if (inputOperator === 'maior que') {
       const arfilter = list.filter((e) => +e[inputColumn] > +inputNumber);
@@ -100,6 +102,14 @@ function Table() {
           Filtrar
         </button>
       </form>
+      {filtro.map((e) => (
+        <p key={ e } data-testid="filter">
+          {e}
+          <button type="button">
+            Apagar
+          </button>
+        </p>
+      ))}
       <table>
         <thead>
           <tr>
@@ -120,7 +130,7 @@ function Table() {
         </thead>
         <tbody>
           {list.map((e) => (
-            <tr data-testid="linhas" key={ e.name }>
+            <tr key={ e.name }>
               <td>{e.name}</td>
               <td>{e.rotation_period}</td>
               <td>{e.orbital_period}</td>
