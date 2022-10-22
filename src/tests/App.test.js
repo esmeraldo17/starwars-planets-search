@@ -93,8 +93,5 @@ describe('Testa o meu App', () => {
     userEvent.click(filterBtn);
 
     expect(options).toHaveLength(8);
-
-
-
   });
 })

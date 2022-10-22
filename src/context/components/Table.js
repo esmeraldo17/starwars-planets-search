@@ -39,6 +39,7 @@ function Table() {
   const onFilterBtnClick = () => {
     const filtraColuna = arrColumn.filter((e) => e !== inputColumn);
     setArrColumn(filtraColuna);
+    setInputColumn(arrColumn[0]);
     setFiltro([...filtro, `${inputColumn} ${inputOperator} ${inputNumber}`]);
 
     if (inputOperator === 'maior que') {
